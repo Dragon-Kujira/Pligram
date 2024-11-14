@@ -1,0 +1,67 @@
+<header>
+  <div class="container-fluid", style="background-color: #f1f0e5; margin-bottom: 50px; padding: 20px;">
+    <nav class="navbar navbar-expand-md navbar-light">
+    <ul class="navbar-nav">
+    <% if user_signed_in? %>
+
+    <!--ユーザーがログインしている時 -->
+    <div style="position: absolute; top: 0; right: 0; display: flex;">
+    <span class="text-center">
+    ようこそ、<%= current_user.name %>さん！
+    </span>
+    <li class="nav-item">
+      <%= link_to "マイページ", users_my_page_path,class: 'btn btn-outline-secondary btn-sm mx-3' %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "投稿一覧", posts_path,class: 'btn btn-outline-secondary btn-sm mx-3' %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "新規投稿", new_post_path,class: 'btn btn-outline-secondary btn-sm mx-3' %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "ログアウト", destroy_user_session_path, class: 'btn btn-outline-secondary btn-sm mx-3', method: :delete %>
+    </li>
+  </div>
+
+  <% elsif admin_signed_in? %>
+  <!-- 管理者がログインしている時 -->
+  
+  <div style="position: absolute; top: 0; right: 0; display: flex;">
+  <span class="text-center">
+  ようこそ、<%= current_admin.name %>！
+  </span>
+   <li class="nav-item">
+    <%= link_to "投稿一覧", admin_root_path,class: 'btn btn-outline-secondary btn-sm mx-3' %>
+   </li>
+   <li class="nav-item">
+    <%= link_to "ユーザー一覧", admin_users_path,class: 'btn btn-outline-secondary btn-sm mx-3' %>
+   </li>
+   <li class="nav-item">
+    <%= link_to "ジャンル一覧", admin_genres_path,class: 'btn btn-outline-secondary btn-sm mx-3' %>
+   </li>
+   <li class="nav-item">
+     <%= link_to "ログアウト", destroy_admin_session_path, class: 'btn btn-outline-secondary btn-sm mx-3', method: :delete %>
+   </li>
+  </div>
+     
+  <% else %>
+
+  <!-- ログインしていない時 -->
+  <div style="position: absolute; top: 0; right: 0; display: flex;">
+    <li class="nav-item">
+      <%= link_to "Top", root_path,class: 'btn btn-outline-secondary btn-sm mx-3' %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "投稿一覧", root_path,class: 'btn btn-outline-secondary btn-sm mx-3' %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "新規登録", new_user_registration_path,class: 'btn btn-outline-secondary btn-sm mx-3' %>
+    </li>
+      <li class="nav-item"><%= link_to "ログイン", new_user_session_path,class: 'btn btn-outline-secondary btn-sm mx-3' %>
+    </li>
+  </div>
+  <% end %>
+    </ul>
+    </nav>
+  </div>
+</header>

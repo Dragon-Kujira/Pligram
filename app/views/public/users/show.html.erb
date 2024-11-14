@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+    
+      <div class="col-xl-2 col-md-3 bg-light text-center" style="margin-left: 80px;">
+        <h5 class="my-2">マイページ</h5>
+      </div>
+        <div class="d-flex align-items-center" style="padding-top: 5px;padding-bottom: 10px;">
+          <h4><b>登録情報</b></h4>
+          
+        </div>
+        
+        <table class="table table-bordered">
+          <tr>
+            <td class="bg-light" style="width: 200px;">ユーザーネーム</td>
+            <td><%= @user.name %></td>
+          </tr>
+          <tr>
+           <td class="bg-light" style="width: 200px;">ユーザー画像</td>
+           <td><%= image_tag @user.get_image, size:'50x50' %></td>
+          </tr>
+          <tr>
+            <td class="bg-light">メールアドレス</td>
+            <td><%= @user.email %></td>
+          </tr>
+          <tr>
+          <% if user_signed_in? && @user == current_user %>
+          <td class="bg-light"><%= link_to "編集する", users_my_page_edit_path, class:"btn btn-success btn-sm ml-3" %></td>
+          <td><%=link_to "退会する", users_unsubscribe_path, class:"btn btn-danger" %></td>
+          <% end %>
+          </tr>
+        </table>
+        
+    </div>
+  </div>
+</div>
+

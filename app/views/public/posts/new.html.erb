@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 px-sm-0 offset-sm-1">
+
+    <% if @post.errors.any? %>
+    <%= @post.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <% end %>
+
+    <%= form_with model: @post,url: posts_path, method: :post do |f| %>
+     <h2>商品新規登録</h2>
+      <table>
+      <tr>
+      <div class="form-group">
+        <th><%= f.label :ジャンル %></th>
+        <td><%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => "--選択してください--" %></td>
+      </div>
+     </tr>
+        <tr>
+          <div class="form-group">
+            <th><%= f.label :タイトル %></th>
+            <td><%= f.text_field :title, placeholder:"ここに作品名を記述します" %></td>
+          </div>
+        </tr>
+        <tr>
+        <div class="form-group">
+          <th><%= f.label :住所 %></th>
+          <td><%= f.text_field :address, placeholder:"ここに住所を記述します" %></td>
+        </div>
+        </tr>
+        <tr>
+          <div class="form-group">
+            <th><%= f.label :説明 %></th>
+            <td><%= f.text_area :body, size: "50x5", placeholder:"ここに説明文を記述します" %></td>
+          </div>
+        </tr>
+        <tr>
+          <div class="form-group">
+            <th><%= f.label :画像 %></th>
+            <th><%= f.file_field :images, multiple: true, accept: "images/*" %></th>
+          </div>
+        </tr>
+        <div class="form-action">
+          <th><%= f.submit "新規投稿", class:"btn btn-success" %></th>
+        </div>
+        </tr>
+      <% end %>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="container">
+  <h4 class="m-4"><span style="background-color:#eeeeee">投稿</span></h4>
+</div>
+    
+    <div class="container">
+     <table class="table table-borderless">
+      <tbody>
+      <tr>
+        <td>ジャンル</td>
+        <td><%= @posts.genre.name %></td>
+      </tr>
+      <tr>
+        <td>タイトル</td>
+        <td><%= @posts.title %></td>
+      </tr>
+      <tr>
+       <td>住所</td>
+        <td><%= @posts.address %></td>
+      </tr>
+      <tr>
+        <td>画像</td>
+        <td>
+        <% if @posts.images.attached? %>
+        <% @posts.images.each do |images| %>
+        <%= image_tag @posts.get_images[0], size:'200x200' %>
+        </td>
+        <% end %>
+        <% end %>
+      </tr>
+    </tbody>
+    </table>
+</div>
+</div>
+</div> <span></span>
+
+<div class="container mb-4">
+ <% if user_signed_in? && current_user.id == @posts.user_id %>
+ <%= link_to '編集する', edit_post_path(@posts.id), class: 'btn btn-success  px-4' %>
+ <%= link_to '削除する', post_path(@posts.id), method: :delete, class: 'btn btn-success  px-4', data: {confirm: "この削除しますか？"} %>
+ <% end %>
+</div>
