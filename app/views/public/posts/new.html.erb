@@ -12,14 +12,19 @@
     <% end %>
 
     <%= form_with model: @post,url: posts_path, method: :post do |f| %>
-     <h2>商品新規登録</h2>
+     <h2>レビュー投稿</h2>
       <table>
-      <tr>
-      <div class="form-group">
-        <th><%= f.label :ジャンル %></th>
-        <td><%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => "--選択してください--" %></td>
-      </div>
-     </tr>
+        <tr>
+         <div class="form-group">
+          <th><%= f.label :ジャンル %></th>
+          <td><%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => "--選択してください--" %></td>
+         </div>
+         </tr>
+        <tr>
+          <div class="form-group">
+           <th><%= f.label :レビュータイトル %></th>
+           <td><%= f.text_field :caption, size: "50", placeholder:"ここにレビュータイトルを記述します" %></td>
+        </tr>
         <tr>
           <div class="form-group">
             <th><%= f.label :タイトル %></th>
@@ -29,13 +34,13 @@
         <tr>
         <div class="form-group">
           <th><%= f.label :住所 %></th>
-          <td><%= f.text_field :address, placeholder:"ここに住所を記述します" %></td>
+          <td><%= f.text_field :address, size: "50", placeholder:"ここに住所を記述します" %></td>
         </div>
         </tr>
         <tr>
           <div class="form-group">
             <th><%= f.label :説明 %></th>
-            <td><%= f.text_area :body, size: "50x5", placeholder:"ここに説明文を記述します" %></td>
+            <td><%= f.text_area :body, size: "52x5", placeholder:"ここに説明文を記述します" %></td>
           </div>
         </tr>
         <tr>

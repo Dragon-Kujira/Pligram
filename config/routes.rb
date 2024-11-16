@@ -20,16 +20,21 @@ scope module: :public do
   patch 'users/my_page', to: 'users#update'
   get 'users/unsubscribe'
   patch 'users/withdraw'
-  resources :posts, only: [:new, :index, :show, :create, :edit, :update,:destroy]
+  resources :posts, only: [:new, :index, :show, :create, :edit, :update, :destroy] do
+  resource :favorite, only: [:create, :destroy]
+  resources :comments, only: [:create, :destroy]  
+end
 end
 
 namespace :admin do
  root :to => "homes#top"
  resources :genres, only: [:index, :create, :edit, :update]
  resources :users, only: [:index, :show, :edit, :update]
+ resources :posts, only: [:index, :show, :edit, :update, :destroy] do
+ resources :comments, only: [:create, :destroy]  
+end
 end
 
+end
 
 # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
-end

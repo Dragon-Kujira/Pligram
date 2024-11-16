@@ -5,14 +5,13 @@
     <div class="container">
      <table class="table-sm table-borderless">
       <tbody>
-      <tr>
        <tr>
         <td>
           <% @post.get_images.each do |image| %>
             <%= image_tag image, size:'200x200' %>
           <% end %>
         </td>
-        </tr>
+       </tr>
         <tr>
          <td>作品タイトル</td>
          <td><%= @post.title %></td>
@@ -28,17 +27,13 @@
         <tr>
         <td>住所</td>
          <td><%= @post.address %></td>
-        </tr> 
+        </tr>
         <tr>
          <td>投稿者</td>
          <td><%= @post.user.name %></td>
         </tr> 
-       </tr> 
       </tr>
-      <!-- ブックマーク -->
-      <td id="favorite_btn_<%= @post.id %>">
-      <%= render "public/favorites/btn", post: @post %>
-      <td>
+
     </tbody>
     </table>
 </div>
@@ -58,10 +53,8 @@
     <%= image_tag comment.user.get_image, size:'50x50' %>
     <%= comment.body %><br>
     <%= comment.user.name %><br>
-    <%= comment.created_at.strftime('%Y/%m/%d') %>
-    <% if comment.user == current_user %>
-    <%= link_to "削除",[comment.post, comment], method: :delete, data: {confirm: "このコメントを削除しますか？"} %>
-    <% end %>
+    <%= comment.created_at.strftime('%Y/%m/%d') %>  
+    <%= link_to "削除",[comment.post, comment], method: :delete, data: {confirm: "このコメントを削除しますか？"} %>  
   </td>
  </tr>
    <% end %>
@@ -69,19 +62,10 @@
   </table>
 </div>
 
-<div class="container">
-  <%= form_with(model: [@post, @comment], url: post_comments_path(@post), method: :post) do |f| %>
-    <%= f.text_area :body, size: "50", placeholder: "コメントを入力" %></br>
-    <%= f.submit "送信する" %>
-  <% end %>
-</div>
-
 </br>
 <div class="container">
- <% if user_signed_in? && current_user.id == @post.user_id %>
- <%= link_to '編集する', edit_post_path(@post.id), class: 'btn btn-success  px-4' %>
- <%= link_to '削除する', post_path(@post.id), method: :delete, class: 'btn btn-success  px-4', data: {confirm: "この投稿を削除しますか？"} %>
- <% end %>
+ <%= link_to '編集する', edit_admin_post_path(@post.id), class: 'btn btn-success  px-4' %>
+ <%= link_to '削除する', admin_post_path(@post), method: :delete, class: 'btn btn-success  px-4', data: {confirm: "この投稿を削除しますか？"} %>
 </div>
 
 

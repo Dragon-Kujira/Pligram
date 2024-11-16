@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-8 px-sm-0 offset-sm-1">
-    <%= form_with model: @posts, url: post_path, method: :patch do |f| %>
+    <%= form_with model: @posts, url: admin_post_path(@posts), method: :patch do |f| %>
       <table>
         <tr>
         <div class="form-group">
@@ -17,7 +17,7 @@
         </tr>
         <tr>
           <div class="form-group">
-            <th><%= f.label :タイトル %></th>
+            <th><%= f.label :作品タイトル %></th>
             <td><%= f.text_field :title, placeholder:"タイトル名" %></td>
           </div>
         </tr>

@@ -17,11 +17,12 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-   @posts = Post.all 
+    @posts = Post.page(params[:page])
   end
 
   def show
    @post = Post.find(params[:id])
+   @comment = Comment.new
   end
 
   def edit
@@ -49,6 +50,6 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:user_id, :genre_id, :title, :body, :address, images: [])
+    params.require(:post).permit(:user_id, :genre_id, :caption, :title, :body, :address, images: [])
   end
 end
