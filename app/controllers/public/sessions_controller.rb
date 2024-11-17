@@ -29,7 +29,7 @@ class Public::SessionsController < Devise::SessionsController
       end
      else
        flash[:error] = "該当するユーザーが見つかりません。"
-       redirect_to new_user_registration_path
+       redirect_to new_user_session_path
     end
   end
 

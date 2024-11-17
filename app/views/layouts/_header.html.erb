@@ -9,6 +9,12 @@
     <span class="text-center">
     ようこそ、<%= current_user.name %>さん！
     </span>
+    <!-- 検索窓 -->
+    <li class="searchbox">
+      <%= search_form_for(@search, url:posts_path) do |f| %>
+        <%= f.text_field :title_or_caption_cont, placeholder: 'キーワードを入力' %>
+      <% end %>
+    </li>
     <li class="nav-item">
       <%= link_to "マイページ", users_my_page_path,class: 'btn btn-outline-secondary btn-sm mx-3' %>
     </li>
@@ -21,15 +27,22 @@
     <li class="nav-item">
       <%= link_to "ログアウト", destroy_user_session_path, class: 'btn btn-outline-secondary btn-sm mx-3', method: :delete %>
     </li>
+
   </div>
 
   <% elsif admin_signed_in? %>
-  <!-- 管理者がログインしている時 -->
   
+  <!-- 管理者がログインしている時 -->
   <div style="position: absolute; top: 0; right: 0; display: flex;">
   <span class="text-center">
   ようこそ、<%= current_admin.name %>！
   </span>
+  <!-- 検索窓 -->
+  <li class="searchbox">
+    <%= search_form_for(@search, url:posts_path) do |f| %>
+      <%= f.text_field :title_or_caption_cont, placeholder: 'キーワードを入力' %>
+    <% end %>
+  </li>
    <li class="nav-item">
     <%= link_to "投稿一覧", admin_posts_path,class: 'btn btn-outline-secondary btn-sm mx-3' %>
    </li>
@@ -42,12 +55,19 @@
    <li class="nav-item">
      <%= link_to "ログアウト", destroy_admin_session_path, class: 'btn btn-outline-secondary btn-sm mx-3', method: :delete %>
    </li>
+
   </div>
      
   <% else %>
 
   <!-- ログインしていない時 -->
   <div style="position: absolute; top: 0; right: 0; display: flex;">
+  <!-- 検索窓 -->
+  <li class="searchbox">
+    <%= search_form_for(@search, url:posts_path) do |f| %>
+      <%= f.text_field :title_or_caption_cont, placeholder: 'キーワードを入力' %>
+    <% end %>
+  </li>
     <li class="nav-item">
       <%= link_to "Top", root_path,class: 'btn btn-outline-secondary btn-sm mx-3' %>
     </li>
@@ -60,6 +80,7 @@
       <li class="nav-item"><%= link_to "ログイン", new_user_session_path,class: 'btn btn-outline-secondary btn-sm mx-3' %>
     </li>
   </div>
+
   <% end %>
     </ul>
     </nav>

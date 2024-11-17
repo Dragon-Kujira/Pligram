@@ -13,10 +13,18 @@ class Post < ApplicationRecord
   #validates :images, presence: true
 
   def favorited_by?(user)
-    favorites.exists?(user_id: user.id)
+    user.present? && favorites.exists?(user_id: user.id)
   end
   
-  
+
+  def self.ransackable_associations(auth_object = nil)
+    ["comments", "favorites", "genre", "images_attachments", "images_blobs", "user"]
+  end
+  def self.ransackable_attributes(auth_object = nil)
+    ["title", "caption"]
+  end
+
+
   def get_images
     unless images.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -24,4 +32,7 @@ class Post < ApplicationRecord
     end
     images
   end
+
+
+  
 end
