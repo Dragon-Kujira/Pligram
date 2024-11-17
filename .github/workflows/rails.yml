@@ -16,6 +16,8 @@ jobs:
         HOST_NAME: ${{ secrets.HOST_NAME }}
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+        ls -la
+        cat private_key
         ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_NAME} 'cd Pligram &&
         git pull origin main &&
         ~/.rbenv/shims/bundle install &&
