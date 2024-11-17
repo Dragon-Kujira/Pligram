@@ -4,10 +4,13 @@ class Post < ApplicationRecord
   has_many_attached :images
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  #Postsテーブルから中間テーブルに対する関連付け
+  has_many :post_tags, dependent: :destroy
+  #Postsテーブルから中間テーブルを介してTagsテーブルへの関連付け
+  has_many :tags, through: :post_tags, dependent: :destroy
   
   validates :genre_id, presence: true
   validates :caption, presence: true
-  validates :title, presence: true
   validates :body, presence: true
   validates :address, presence: true
   #validates :images, presence: true
@@ -16,6 +19,17 @@ class Post < ApplicationRecord
     user.present? && favorites.exists?(user_id: user.id)
   end
   
+  # タグの名前を簡単に扱うためのメソッドを追加
+  def tag_names
+    tags.pluck(:name).join(', ')
+  end
+
+  def tag_names=(names)
+    self.tags = names.split(',').map do |name|
+      Tag.find_or_create_by(name: name.strip)
+    end
+  end
+
 
   def self.ransackable_associations(auth_object = nil)
     ["comments", "favorites", "genre", "images_attachments", "images_blobs", "user"]

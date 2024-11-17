@@ -22,7 +22,7 @@
           <% @posts.each do |post| %>
             <tr>
               <td><%= link_to post.caption ,admin_post_path(post.id) %></td>
-              <td><%= post.title %></td>
+              <td><%= post.tags.map(&:name).join(', ') %></td>
               <td><%= post.body %></td>
               <td><%= post.genre.name %></td>
             </tr>

@@ -13,7 +13,7 @@
         <thead class=" thead-light ">
           <tr>
             <th>レビュータイトル</th>
-            <th>作品タイトル</th>
+            <th>作品タグ</th>
             <th>説明</th>
             <th>ジャンル</th>
             <th></th>
@@ -23,7 +23,7 @@
           <% @posts.each do |post| %>
             <tr>
               <td><%= link_to post.caption ,post_path(post.id) %></td>
-              <td><%= post.title %></td>
+              <td><%= post.tags.map(&:name).join(', ') %></td>
               <td><%= post.body %></td>
               <td><%= post.genre.name %></td>
               <td id="favorite_btn_<%= post.id %>">

@@ -14,8 +14,8 @@
         </td>
         </tr>
         <tr>
-         <td>作品タイトル</td>
-         <td><%= @post.title %></td>
+         <td>作品タグ</td>
+         <td><%= @post.tags.map(&:name).join(', ') %></td>
         </tr>
         <tr>
          <td>レビュー</td>
