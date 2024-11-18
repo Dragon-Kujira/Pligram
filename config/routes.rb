@@ -15,6 +15,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 
 scope module: :public do
   root :to => "homes#top"
+  get '/search', to: 'searches#search'
   get 'users/my_page', to: 'users#show'
   get 'users/my_page/edit', to: 'users#edit'
   patch 'users/my_page', to: 'users#update'
@@ -23,7 +24,7 @@ scope module: :public do
   resources :posts, only: [:new, :index, :show, :create, :edit, :update, :destroy] do
   resource :favorite, only: [:create, :destroy]
   resources :comments, only: [:create, :destroy]  
-end
+  end
 end
 
 namespace :admin do

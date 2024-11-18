@@ -30,15 +30,6 @@ class Post < ApplicationRecord
     end
   end
 
-
-  def self.ransackable_associations(auth_object = nil)
-    ["comments", "favorites", "genre", "images_attachments", "images_blobs", "user"]
-  end
-  def self.ransackable_attributes(auth_object = nil)
-    ["title", "caption"]
-  end
-
-
   def get_images
     unless images.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')

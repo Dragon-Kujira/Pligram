@@ -1,0 +1,32 @@
+<h2>検索結果</h2>
+
+<% if @users.empty? && @posts.empty? && params[:query].present? %>
+"<strong><%= @query %></strong>" で検索しました。<br>
+<strong><%= @total_results %></strong> 件の投稿が見つかりました。
+<% end %>
+
+<% if @users.any? %>
+  <h3>ユーザー</h3>
+  <ul>
+  <p>
+  "<strong><%= @query %></strong>" で検索しました。<br>
+  <strong><%= @total_results %></strong> 件の投稿が見つかりました。
+  </p>
+    <% @users.each do |user| %>
+      <li><%= user.name %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @posts.any? %>
+  <h3>投稿</h3>
+  <ul>
+  <p>
+  "<strong><%= @query %></strong>" で検索しました。<br>
+  <strong><%= @total_results %></strong> 件の投稿が見つかりました。
+  </p>
+    <% @posts.each do |post| %>
+      <li><%= post.caption %></li>
+    <% end %>
+  </ul>
+<% end %>
