@@ -1,0 +1,18 @@
+<div class="form-group position-static">
+    <div id="post_raty"></div> <!-- 星を出力するセレクタ -->
+    <% if post.id.nil? %> <!-- 新規投稿か判別 -->
+      <script>
+          var elem = document.querySelector('#post_raty');
+          var opt = {
+              starOn: "<%= asset_path('star-on.png') %>",
+              starOff: "<%= asset_path('star-off.png') %>",
+              starHalf: "<%= asset_path('star-half.png') %>",
+              half: true,                 // 0.5刻み有効化
+              scoreName: 'post[star]'     // サーバーに送信するフォームフィールド名
+          };
+          raty(elem, opt);
+      </script>
+    <% else %>
+      <%= render "public/posts/starview", post: post %>
+    <% end %>
+</div>

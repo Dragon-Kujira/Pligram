@@ -38,6 +38,9 @@
         </div>
         </tr>
         <tr>
+
+        </tr>
+        <tr>
           <div class="form-group">
             <th><%= f.label :説明 %></th>
             <td><%= f.text_area :body, size: "52x5", placeholder:"ここに説明文を記述します" %></td>
@@ -49,6 +52,9 @@
             <th><%= f.file_field :images, multiple: true, accept: "images/*" %></th>
           </div>
         </tr>
+        <!-- ☆評価ボタン -->
+        <%= render "public/posts/starform", post: @post %>
+
         <div class="form-action">
           <th><%= f.submit "新規投稿", class:"btn btn-success" %></th>
         </div>

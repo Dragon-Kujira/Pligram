@@ -33,6 +33,9 @@
          <td>投稿者</td>
          <td><%= @post.user.name %></td>
         </tr> 
+        <td>評価</td>
+        <td><%= render "public/posts/starform", post: @post %></td>
+       </tr> 
        </tr> 
       </tr>
       <!-- ブックマーク -->
