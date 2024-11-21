@@ -16,11 +16,13 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 scope module: :public do
   root :to => "homes#top"
   get '/search', to: 'searches#search'
-  get 'users/my_page', to: 'users#show'
-  get 'users/my_page/edit', to: 'users#edit'
-  patch 'users/my_page', to: 'users#update'
+  get '/my_page', to: 'users#show', as: 'my_page'
+  get 'my_page/edit', to: 'users#edit', as: 'edit_my_page'
+  patch 'my_page/edit', to: 'users#update'
   get 'users/unsubscribe'
   patch 'users/withdraw'
+  get 'users/:user_id/userposts', to: 'users#userposts', as: 'userposts'
+  resources :users, only: [:show]
   resources :posts, only: [:new, :index, :show, :create, :edit, :update, :destroy] do
   resource :favorite, only: [:create, :destroy]
   resources :comments, only: [:create, :destroy]  

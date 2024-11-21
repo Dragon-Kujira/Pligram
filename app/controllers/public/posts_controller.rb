@@ -2,18 +2,27 @@ class Public::PostsController < ApplicationController
 
   def new
    @post = Post.new
+   @tags = Tag.all
   end
 
   def create
-   @post = Post.new(post_params)
-   @post.user = current_user
+    @post = Post.new(post_params)
+
+    # 新しいタグの追加
+    if params[:post][:new_tags].present?
+      new_tags = params[:post][:new_tags].split(',').map(&:strip)
+      new_tags.each do |tag_name|
+        tag = Tag.find_or_create_by(name: tag_name)
+        @post.tags << tag
+      end
+    end
+
     if @post.save
-    flash[:notice] = '登録成功！'
-    redirect_to post_path(@post)
-     else
-    flash[:notice] = '登録エラー！'
-    render :new
-   end
+      redirect_to post_path(@post), notice: '投稿が作成されました。'
+    else
+      @tags = Tag.all
+      render :new
+    end
   end
 
   def index
@@ -50,6 +59,6 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:user_id, :genre_id, :tag_names, :caption, :body, :address, :star, images: [])
+    params.require(:post).permit(:user_id, :genre_id, :tag_names, :caption, :body, :address, :star, tag_ids: [], images: [])
   end
 end

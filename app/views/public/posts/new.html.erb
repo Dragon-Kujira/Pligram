@@ -26,20 +26,29 @@
            <td><%= f.text_field :caption, size: "50", placeholder:"ここにレビュータイトルを記述します" %></td>
         </tr>
         <tr>
-          <div class="form-group">
-            <th><%= f.label :作品タグ %></th>
-            <td><%= f.text_field :tag_names, placeholder:"ここに作品名を記述します" %></td>
-          </div>
-        </tr>
-        <tr>
         <div class="form-group">
-          <th><%= f.label :住所 %></th>
-          <td><%= f.text_field :address, size: "50", placeholder:"ここに住所を記述します" %></td>
+          <th><%= f.label :☆評価 %></th>
+          <td><%= render "public/posts/starform", post: @post %></td>
         </div>
         </tr>
         <tr>
-
+        <div class="form-group">
+         <th><%= f.label :tag_ids, '既存のタグから選択' %></th>
+         <td><%= f.collection_select :tag_ids, @tags, :id, :name, { include_blank: '選択しない' } %></td>
+         </div>
         </tr>
+        <tr>
+         <div class="form-group">
+          <th><%= f.label :new_tags, '新しいタグ(作品タイトル)' %></th>
+          <td><%= text_field_tag :new_tags %></td>
+         </div>
+        </tr>
+         <tr>
+         <div class="form-group">
+          <th><%= f.label :住所 %></th>
+          <td><%= f.text_field :address, size: "50", placeholder:"ここに住所を記述します" %></td>
+         </div>
+         </tr>
         <tr>
           <div class="form-group">
             <th><%= f.label :説明 %></th>
@@ -52,9 +61,7 @@
             <th><%= f.file_field :images, multiple: true, accept: "images/*" %></th>
           </div>
         </tr>
-        <!-- ☆評価ボタン -->
-        <%= render "public/posts/starform", post: @post %>
-
+   
         <div class="form-action">
           <th><%= f.submit "新規投稿", class:"btn btn-success" %></th>
         </div>
