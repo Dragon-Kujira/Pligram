@@ -13,7 +13,7 @@ class Public::CommentsController < ApplicationController
   def destroy
     flash[:notice] = ' コメントを削除しました。'
     Comment.find(params[:id]).destroy
-    redirect_to admin_post_path(params[:post_id])
+    redirect_to post_path(params[:post_id])
   end
 
 

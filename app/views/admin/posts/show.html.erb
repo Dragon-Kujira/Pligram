@@ -1,72 +1,51 @@
 <div class="container">
-  <h4 class="m-4"><span style="background-color:#eeeeee"><%= @post.caption %></span></h4>
+  <div class="card mb-3">
+    <div class="card-header bg-light">
+      <h4 class="m-4"><span><%= @post.caption %></span></h4>
+    </div>
+    <div class="card-body">
+      <% @post.get_images.each do |image| %>
+        <%= image_tag image, size: '200x200', class: "img-thumbnail mr-2 mb-2" %>
+      <% end %>
+      <p class="card-text">ジャンル: <%= @post.genre.name %></p>
+      <p class="card-text">作品タグ: <%= @post.tags.map(&:name).join('') %></ｐ>
+      <p class="card-text">レビュー文: <%= @post.body %></p>
+      <p class="card-text">住所: <%= @post.address %></p>
+      <p class="card-text">投稿者: <%= @post.user.name %></p>
+      <p class="card-text"><%= render "public/posts/starform", post: @post %></p>
+      <%= render "public/favorites/btn", post: @post %>
+    </div>
+  </div>
 </div>
-    
-    <div class="container">
-     <table class="table-sm table-borderless">
-      <tbody>
-       <tr>
-        <td>
-          <% @post.get_images.each do |image| %>
-            <%= image_tag image, size:'200x200' %>
-          <% end %>
-        </td>
-       </tr>
-        <tr>
-         <td>作品タグ</td>
-         <td><%= @post.tags.map(&:name).join(', ') %></td>
-        </tr>
-        <tr>
-         <td>レビュー</td>
-         <td><%= @post.body %></td>
-        </tr>
-        <tr>
-         <td>ジャンル</td>
-         <td><%= @post.genre.name %></td>
-        </tr>
-        <tr>
-        <td>住所</td>
-         <td><%= @post.address %></td>
-        </tr>
-        <tr>
-         <td>投稿者</td>
-         <td><%= @post.user.name %></td>
-        </tr> 
-      </tr>
-
-    </tbody>
-    </table>
-</div>
-</div>
-</div> 
-
-<div class="container">
-<h5 class="m-4"><span style="background-color:#eeeeee">コメント：<%= @post.comments.count %>件</span></h5>
 </div>
 
 <div class="container">
-<table class="table table-borderless">
- <tbody>
-  <% @post.comments.each do |comment| %>
- <tr>
-  <td>
-    <%= image_tag comment.user.get_image, size:'50x50' %>
-    <%= comment.body %><br>
-    <%= comment.user.name %><br>
-    <%= comment.created_at.strftime('%Y/%m/%d') %>  
-    <%= link_to "削除",[comment.post, comment], method: :delete, data: {confirm: "このコメントを削除しますか？"} %>  
-  </td>
- </tr>
-   <% end %>
-  </tbody>
-  </table>
+  <div class="card mb-3 border-0">
+   <div class="card-header border-0" style="padding-top: 0; padding-bottom: 0;">
+    <h5 class="m-4"><span>コメント：<%= @post.comments.count %>件</span></h5>
+   </div>
+    <div class="card-body">
+    <div class="mb-3">
+      <% @post.comments.each do |comment| %>
+        <div class="card mb-2 border-0"> <!-- カードのふちを非表示に -->
+          <div class="card-body">
+            <%= image_tag comment.user.get_image, size: '50x50', class: "img-thumbnail float-left mr-2" %>
+            <p class="card-text"><strong><%= comment.user.name %></strong><br>
+              <%= comment.body %><br>
+              <%= comment.created_at.strftime('%Y/%m/%d') %></p>
+              <%= link_to "削除", admin_post_comment_path(@post, comment), method: :delete, data: { confirm: "このコメントを削除しますか？" } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
 
-</br>
 <div class="container">
- <%= link_to '編集する', edit_admin_post_path(@post.id), class: 'btn btn-success  px-4' %>
- <%= link_to '削除する', admin_post_path(@post), method: :delete, class: 'btn btn-success  px-4', data: {confirm: "この投稿を削除しますか？"} %>
+    <%= link_to '投稿を編集する', edit_admin_post_path(@post.id), class: 'btn btn-success mr-2' %>
+    <%= link_to '投稿を削除する', admin_post_path(@post), method: :delete, class: 'btn btn-danger', data: { confirm: "この投稿を削除しますか？" } %>
 </div>
+
 
 
 

@@ -2,9 +2,9 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white">
-          <h5 class="card-title mb-0"><%= @user.name %>さんのマイページ</h5>
-        </div>
+      <div class="card-header bg-primary text-white text-center">
+       <h5 class="card-title mb-0"><%= @user.name %>さんのマイページ</h5>
+      </div>
         <div class="card-body">
           <div class="text-center mb-4">
             <%= image_tag @user.get_image, size: '100x100', class: "rounded-square shadow-sm" %>
@@ -27,7 +27,7 @@
           </ul>
           <% if user_signed_in? && @user == current_user %>
           <div class="d-flex justify-content-left mt-4">
-            <%= link_to "編集する", edit_my_page_path, class: "btn btn-success px-4" %>
+            <%= link_to "編集する", edit_my_page_path, class: "btn btn-primary px-4" %>
           </div>
           <% end %>
         </div>
@@ -35,7 +35,7 @@
       <!-- カードの直下に退会リンクを配置 -->
       <% if user_signed_in? && @user == current_user %>
         <div class="text-left mt-3">
-          <%= link_to "退会する", users_unsubscribe_path, class: "text-danger", data: { confirm: "本当に退会しますか？" } %>
+          <%= link_to "退会する", unsubscribe_path, class: "text-danger" %>
         </div>
       <% end %>
     </div>

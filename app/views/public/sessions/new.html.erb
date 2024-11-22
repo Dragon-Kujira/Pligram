@@ -1,6 +1,6 @@
 
 <div class="container mt-5" style="max-width: 400px;">
-<h2 class="text-left mb-4">ログイン</h2>
+ <h2 class="text-center mb-4">ログイン</h2>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "card p-4 shadow-sm" }) do |f| %>
     
     <div class="mb-3">
@@ -9,7 +9,7 @@
     </div>
 
     <div class="mb-3">
-      <%= f.label :パスワード, t('devise.sessions.new.password'), class: "form-label" %>
+      <%= f.label :passward, t('devise.sessions.new.password'), class: "form-label" %>
       <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
     </div>
 

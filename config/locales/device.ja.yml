@@ -20,10 +20,10 @@ ja:
     attributes:
       user:
         current_password: "現在のパスワード"
-        name: 名前
+        name: ユーザーネーム
         email: "メールアドレス"
         password: "パスワード"
-        password_confirmation: "確認用パスワード"
+        password_confirmation: "パスワード (確認用)"
         remember_me: "次回から自動的にログイン"
     models:
       user: "ユーザ"
@@ -68,6 +68,7 @@ ja:
         we_need_your_current_password_to_confirm_your_changes: "変更を反映するには現在のパスワードを入力してください"
       new:
         sign_up: "アカウント登録"
+        password: "パスワード"
     sessions:
       new:
         log_in: "ログイン"

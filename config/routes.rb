@@ -19,9 +19,9 @@ scope module: :public do
   get '/my_page', to: 'users#show', as: 'my_page'
   get 'my_page/edit', to: 'users#edit', as: 'edit_my_page'
   patch 'my_page/edit', to: 'users#update'
-  get 'users/unsubscribe'
-  patch 'users/withdraw'
-  get 'users/:user_id/userposts', to: 'users#userposts', as: 'userposts'
+  get '/unsubscribe', to: 'users#unsubscribe', as: 'unsubscribe'
+  patch 'users/withdraw', to: 'users#withdraw'
+  get 'userposts/:user_id', to: 'users#userposts', as: 'userposts'
   resources :users, only: [:show]
   resources :posts, only: [:new, :index, :show, :create, :edit, :update, :destroy] do
   resource :favorite, only: [:create, :destroy]
@@ -30,13 +30,13 @@ scope module: :public do
 end
 
 namespace :admin do
- root :to => "homes#top"
- resources :genres, only: [:index, :create, :edit, :update]
- resources :users, only: [:index, :show, :edit, :update]
- resources :posts, only: [:index, :show, :edit, :update, :destroy] do
- resources :comments, only: [:create, :destroy]  
-end
-end
+  root :to => "homes#top"
+  resources :genres, only: [:index, :create, :edit, :update]
+  resources :users, only: [:index, :show, :edit, :update]
+  resources :posts, only: [:index, :show, :edit, :update, :destroy] do
+   resources :comments, only: [:create, :destroy] 
+  end
+ end
 
 end
 

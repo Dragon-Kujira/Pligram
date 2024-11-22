@@ -1,1 +1,62 @@
-ww
+<div class="container py-4">
+   <h2 class="mb-4 text-center"><%= @user.name %> さんの投稿一覧</h2>
+
+  <!-- ソートボタン -->
+  <div class="d-flex justify-content-center mb-4">
+  <%= link_to "新しい順", userposts_path(sort: 'newest', user_id: @user.id), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'newest'}" %>
+  <%= link_to "古い順", userposts_path(sort: 'oldest', user_id: @user.id), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'oldest'}" %>
+  <%= link_to "評価順", userposts_path(sort: 'highest_star', user_id: @user.id), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'highest_star'}" %>
+  </div>
+  <!-- 投稿カード -->
+  <div class="row">
+    <% @posts.each do |post| %>
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <!-- 投稿タイトル -->
+            <h5 class="card-title">
+              <%= link_to post.caption, post_path(post.id), class: "text-primary text-decoration-none" %>
+            </h5>
+
+            <!-- Starフォーム -->
+            <div class="mb-2">
+              <%= render "public/posts/starform", post: post %>
+            </div>
+
+            <!-- タグ -->
+            <h6 class="card-subtitle mb-2 text-muted">
+              <%= post.tags.map(&:name).join('') %>
+            </h6>
+
+            <!-- 投稿内容を最大30文字で表示 -->
+            <p class="card-text">
+              <%= truncate(post.body, length: 30) %>
+            </p>
+
+            <!-- 画像 -->
+            <div class="card-images d-flex flex-wrap">
+              <% post.get_images.each do |image| %>
+                <%= image_tag image, class: "img-thumbnail me-2 mb-2", size: "100x100" %>
+              <% end %>
+            </div>
+
+            <!-- ジャンル -->
+            <span class="badge bg-primary text-white">
+              <%= post.genre.name %>
+            </span>
+
+            <!-- ブックマーク -->
+            <div id="favorite_btn_<%= post.id %>" class="mt-2">
+              <%= render "public/favorites/btn", post: post %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- ページネーション -->
+  <div class="d-flex justify-content-center mt-4">
+    <%= paginate @posts, theme: 'bootstrap-5' %>
+  </div>
+</div>

@@ -27,3 +27,14 @@ Turbolinks.start()
 ActiveStorage.start()
 
 
+$(document).on('change', '#tag-selector', function () {
+  const selectedValues = $(this).val(); // 選択された値を取得
+
+  if (selectedValues === null || selectedValues.length === 0 || selectedValues.includes("")) {
+    // 「選択しない」の場合
+    $('#new-tags-group').show();
+  } else {
+    // 何か選択されている場合
+    $('#new-tags-group').hide();
+  }
+});

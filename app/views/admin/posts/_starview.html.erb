@@ -1,0 +1,13 @@
+<div id="show_star-<%= post.id %>"></div>
+<script>
+    var elem = document.querySelector('#show_star-<%= post.id %>');
+    var opt = {
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        starHalf: "<%= asset_path('star-half.png') %>",
+        half: true,                 // 0.5刻み有効化
+        readOnly: true,
+        score: <%= post.star || 0 %>     // サーバーに送信するフォームフィールド名
+    };
+    raty(elem,opt);
+</script>

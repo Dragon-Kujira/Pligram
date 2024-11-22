@@ -6,27 +6,35 @@ class Public::PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-
-    # 新しいタグの追加
-    if params[:post][:new_tags].present?
-      new_tags = params[:post][:new_tags].split(',').map(&:strip)
-      new_tags.each do |tag_name|
-        tag = Tag.find_or_create_by(name: tag_name)
-        @post.tags << tag
-      end
-    end
-
+    @post = Post.new(post_params.except(:new_tags))
+    @post.user_id = current_user.id
+  
     if @post.save
+      if params[:post][:new_tags].present?
+        new_tags = params[:post][:new_tags].map(&:strip) # 配列の各要素に strip メソッドを適用
+        new_tags.each do |tag_name|
+          tag = Tag.find_or_create_by(name: tag_name)
+          @post.tags << tag
+        end
+      end
       redirect_to post_path(@post), notice: '投稿が作成されました。'
     else
       @tags = Tag.all
       render :new
     end
   end
-
+  
   def index
-    @posts = Post.page(params[:page])
+    case params[:sort]
+    when 'newest'
+      @posts = Post.order(created_at: :desc).page(params[:page]).per(9)
+    when 'oldest'
+      @posts = Post.order(created_at: :asc).page(params[:page]).per(9)
+    when 'highest_star'
+      @posts = Post.order(star: :desc).page(params[:page]).per(9)
+    else
+      @posts = Post.page(params[:page]).per(9)
+    end
   end
 
   def show
@@ -36,18 +44,26 @@ class Public::PostsController < ApplicationController
 
   def edit
    @posts = Post.find(params[:id])
+   @tags = Tag.all
   end
 
   def update
-   @posts = Post.find(params[:id])
-    if @posts.update(post_params)
-     flash[:notice] = ' 更新に成功しました。'
-     redirect_to post_path(@posts)
-     else
-     flash[:error] = ' 更新に失敗しました。'
-     render :edit
-    end    
-  end
+   @post = Post.find(params[:id])
+    if @post.update(post_params.except(:new_tags))
+      if params[:post][:new_tags].present?
+        new_tags = params[:post][:new_tags].map(&:to_s).map(&:strip)
+        new_tags.each do |tag_name|
+          tag = Tag.find_or_create_by(name: tag_name)
+          @post.tags << tag
+        end
+      end
+      flash[:notice] = '更新に成功しました。'
+      redirect_to post_path(@post)
+    else
+      flash[:error] = '更新に失敗しました。'
+      render :edit
+    end
+   end
 
   def destroy
     @posts = Post.find(params[:id])
@@ -59,6 +75,6 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:user_id, :genre_id, :tag_names, :caption, :body, :address, :star, tag_ids: [], images: [])
+    params.require(:post).permit(:user_id, :genre_id, :caption, :body, :address, :star, tag_ids: [], new_tags: [], images: [])
   end
 end

@@ -4,6 +4,16 @@ class Public::UsersController < ApplicationController
   def userposts
     @user = User.find(params[:user_id])
     @posts = @user.posts
+  
+    case params[:sort]
+    when 'newest'
+      @posts = @posts.order(created_at: :desc)
+    when 'oldest'
+      @posts = @posts.order(created_at: :asc)
+    when 'highest_star'
+      @posts = @posts.order(star: :desc)
+    end
+    @posts = @posts.page(params[:page]).per(9)
   end
 
   def show

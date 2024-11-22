@@ -1,8 +1,18 @@
 class Admin::PostsController < ApplicationController
   before_action :authenticate_admin!
+
   def index
-   @posts = Post.page(params[:page])
-   end
+    case params[:sort]
+    when 'newest'
+      @posts = Post.order(created_at: :desc).page(params[:page]).per(9)
+    when 'oldest'
+      @posts = Post.order(created_at: :asc).page(params[:page]).per(9)
+    when 'highest_star'
+      @posts = Post.order(star: :desc).page(params[:page]).per(9)
+    else
+      @posts = Post.page(params[:page]).per(9)
+    end
+  end
 
   def show
    @post = Post.find(params[:id])
@@ -33,7 +43,7 @@ class Admin::PostsController < ApplicationController
 
    private
 
-   def post_params
-     params.require(:post).permit(:user_id, :genre_id, :caption, :title, :body, :address, :tag_names, :star, images: [])
-   end
+  def post_params
+    params.require(:post).permit(:user_id, :genre_id, :caption, :body, :address, :star, tag_ids: [], new_tags: [], images: [])
+  end
  end

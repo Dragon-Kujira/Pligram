@@ -16,7 +16,7 @@
     <main class="mb-auto">
     
     <!--フラッシュメッセージ機能の追加-->
-    <div class="container">
+    <div class="container mt-3">
       <% flash.each do |key, message| %>
         <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %>">
           <%= message %>

@@ -2,9 +2,11 @@ class Admin::CommentsController < ApplicationController
   before_action :authenticate_admin!
 
   def destroy
-    flash[:notice] = ' コメントを削除しました。'
-    Comment.find(params[:id]).destroy
-    redirect_to admin_post_path(params[:post_id])
+    @comment = Comment.find(params[:id])
+    post_id = @comment.post_id
+    @comment.destroy
+    flash[:success] = "コメントを削除しました"
+    redirect_to admin_post_path(post_id)
   end
 
 

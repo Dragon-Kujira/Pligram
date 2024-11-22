@@ -1,73 +1,61 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-8 px-sm-0 offset-sm-1">
+    <div class="col-sm-8 offset-sm-2">
+      <div class="card">
+        <div class="card-body">
+          <% if @post.errors.any? %>
+            <div class="alert alert-danger" role="alert">
+              <%= @post.errors.count %>件のエラーが発生しました
+              <ul>
+                <% @post.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>    
 
-    <% if @post.errors.any? %>
-    <%= @post.errors.count %>件のエラーが発生しました
-    <ul>
-      <% @post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-    <% end %>
-
-    <%= form_with model: @post,url: posts_path, method: :post do |f| %>
-     <h2>レビュー投稿</h2>
-      <table>
-        <tr>
-         <div class="form-group">
-          <th><%= f.label :ジャンル %></th>
-          <td><%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => "--選択してください--" %></td>
-         </div>
-         </tr>
-        <tr>
-          <div class="form-group">
-           <th><%= f.label :レビュータイトル %></th>
-           <td><%= f.text_field :caption, size: "50", placeholder:"ここにレビュータイトルを記述します" %></td>
-        </tr>
-        <tr>
-        <div class="form-group">
-          <th><%= f.label :☆評価 %></th>
-          <td><%= render "public/posts/starform", post: @post %></td>
+          <h2 class="card-title">レビュー投稿</h2>
+          <%= form_with model: @post, url: posts_path, method: :post, html: { class: "form" } do |f| %>
+            <div class="form-group">
+              <%= f.label :genre_id, 'ジャンル' %>
+              <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "--選択してください--" }, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :caption, 'レビュータイトル' %>
+              <%= f.text_field :caption, size: "50", placeholder: "ここにレビュータイトルを記述します", class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :star, '☆評価' %>
+              <%= render "public/posts/starform", post: @post %>
+            </div>
+            <div class="form-group">
+            <%= f.label :tag_ids, '既存のタグから選択' %>
+            <%= f.collection_select :tag_ids, @tags, :id, :name, 
+              { include_blank: '--選択しない--' }, 
+              { multiple: true, class: "form-control", id: "tag-selector" } %>
+            </div>
+            <div class="form-group" id="new-tags-group">
+              <%= f.label :new_tags, '新しいタグ(作品タイトル)' %>
+              <%= f.text_field :new_tags, name: "post[new_tags][]", class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :address, '住所' %>
+              <%= f.text_field :address, size: "50", placeholder: "ここに住所を記述します", class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :body, '説明' %>
+              <%= f.text_area :body, rows: 5, cols: 52, placeholder: "ここに説明文を記述します", class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :images, '画像' %>
+              <%= f.file_field :images, multiple: true, accept: "images/*", class: "form-control-file" %>
+            </div>
+            <div class="form-action">
+              <%= f.submit "新規投稿", class: "btn btn-success btn-block" %>
+            </div>
+          <% end %>
         </div>
-        </tr>
-        <tr>
-        <div class="form-group">
-         <th><%= f.label :tag_ids, '既存のタグから選択' %></th>
-         <td><%= f.collection_select :tag_ids, @tags, :id, :name, { include_blank: '選択しない' } %></td>
-         </div>
-        </tr>
-        <tr>
-         <div class="form-group">
-          <th><%= f.label :new_tags, '新しいタグ(作品タイトル)' %></th>
-          <td><%= text_field_tag :new_tags %></td>
-         </div>
-        </tr>
-         <tr>
-         <div class="form-group">
-          <th><%= f.label :住所 %></th>
-          <td><%= f.text_field :address, size: "50", placeholder:"ここに住所を記述します" %></td>
-         </div>
-         </tr>
-        <tr>
-          <div class="form-group">
-            <th><%= f.label :説明 %></th>
-            <td><%= f.text_area :body, size: "52x5", placeholder:"ここに説明文を記述します" %></td>
-          </div>
-        </tr>
-        <tr>
-          <div class="form-group">
-            <th><%= f.label :画像 %></th>
-            <th><%= f.file_field :images, multiple: true, accept: "images/*" %></th>
-          </div>
-        </tr>
-   
-        <div class="form-action">
-          <th><%= f.submit "新規投稿", class:"btn btn-success" %></th>
-        </div>
-        </tr>
-      <% end %>
-      </table>
+      </div>
     </div>
   </div>
 </div>
