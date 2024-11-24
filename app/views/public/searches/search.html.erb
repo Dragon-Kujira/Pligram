@@ -1,32 +1,123 @@
-<h2>検索結果</h2>
+<div class="container mt-4">
+  <% if @users.empty? && @posts.empty? && params[:query].present? %>
+    <div class="alert alert-warning text-left">
+      "<strong><%= params[:query] %></strong>" で検索しましたが、該当する情報は見つかりませんでした。
+    </div>
+  <% end %>
+</div>
 
-<% if @users.empty? && @posts.empty? && params[:query].present? %>
-"<strong><%= @query %></strong>" で検索しました。<br>
-<strong><%= @total_results %></strong> 件の投稿が見つかりました。
+<div class="container mt-4">
+ <% if @users.any? %>
+  <div class="alert alert-warning text-left">
+   "<strong><%= @query %></strong>" で検索しました。<br>
+    <strong><%= @total_results %></strong> 件のユーザーが見つかりました。
+  </div>
+</div>
+
+<div class="container my-5">
+  <h3 class="text-center mb-4">
+    <span class="px-3 py-2 rounded">ユーザー: 検索結果</span>
+  </h3>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="thead-light">
+          <tr>
+            <th>ユーザーID</th>
+            <th>ユーザーネーム</th>
+            <th>投稿数</th>
+            <th>ユーザーステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.id %></td>
+              <td><%= link_to user.name, user_path(user.id), class: 'text-decoration-none' %></td>
+             <td>投稿数:</strong> <%= user.posts.count %> <%= link_to "(投稿一覧を見る)", user_posts_path(user), class: "text-primary" %></td>
+              <td class="<%= user.is_active ? 'text-success fw-bold' : 'text-secondary' %>">
+                <% if user.is_active %>
+                  <i class="bi bi-check-circle-fill"></i>有効
+                <% else %>
+                  <i class="bi bi-x-circle-fill"></i>退会済
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 <% end %>
 
-<% if @users.any? %>
-  <h3>ユーザー</h3>
-  <ul>
-  <p>
-  "<strong><%= @query %></strong>" で検索しました。<br>
-  <strong><%= @total_results %></strong> 件の投稿が見つかりました。
-  </p>
-    <% @users.each do |user| %>
-      <li><%= user.name %></li>
-    <% end %>
-  </ul>
-<% end %>
+<div class="container mt-4">
+ <% if @posts.any? %>
+  <div class="alert alert-warning text-left">
+   "<strong><%= @query %></strong>" で検索しました。<br>
+   <strong><%= @total_results %></strong> 件の投稿が見つかりました。
+  </div>
+</div>
 
-<% if @posts.any? %>
-  <h3>投稿</h3>
-  <ul>
-  <p>
-  "<strong><%= @query %></strong>" で検索しました。<br>
-  <strong><%= @total_results %></strong> 件の投稿が見つかりました。
-  </p>
-    <% @posts.each do |post| %>
-      <li><%= post.caption %></li>
-    <% end %>
-  </ul>
+<!-- 投稿カード -->
+<div class="container my-5">
+  <h3 class="text-center mb-4">
+    <span class="px-3 py-2 rounded">投稿: 検索結果</span>
+  </h3>
+</div>
+<div class="row">
+  <% @posts.each do |post| %>
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <!-- 投稿タイトル -->
+          <h5 class="card-title">
+            <%= link_to post.caption, post_path(post.id), class: "text-primary text-decoration-none" %>
+          </h5>
+
+          <!-- Starフォーム -->
+          <div class="mb-2">
+            <%= render "public/posts/starform", post: post %>
+          </div>
+
+          <!-- タグ -->
+          <h6 class="card-subtitle mb-2 text-muted">
+          <% post.tags.each do |tag| %>
+           <%= link_to tag.name, tag_posts_path(tag_id: tag.id) %>
+          <% end %>
+          </h6>
+
+          <!-- 投稿内容を最大30文字で表示 -->
+          <p class="card-text">
+            <%= truncate(post.body, length: 30) %>
+          </p>
+
+          <!-- 画像 -->
+          <div class="card-images d-flex flex-wrap">
+            <% post.get_images.each do |image| %>
+              <%= image_tag image, class: "img-thumbnail me-2 mb-2", size: "100x100" %>
+            <% end %>
+          </div>
+
+          <!-- ジャンル -->
+          <span class="badge bg-primary text-white">
+            <%= post.genre.name %>
+          </span>
+
+          <!-- ブックマーク -->
+          <div id="favorite_btn_<%= post.id %>" class="mt-2">
+            <%= render "public/favorites/btn", post: post %>
+          </div>
+        </div>
+      </div>
+    </div>     
+  <% end %>
+</div>
+<!-- ページネーション -->
+<div class="d-flex justify-content-center mt-4">
+  <%= paginate @posts, theme: 'bootstrap-5' %>
+</div>
+</div>
 <% end %>

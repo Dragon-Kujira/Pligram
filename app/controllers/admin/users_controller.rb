@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @user = User.all
+    @users = User.all
   end
 
   def show
@@ -22,6 +22,15 @@ class Admin::UsersController < ApplicationController
       render 'edit'
      end 
    end
+
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    flash[:notice] = ' ユーザー情報の削除に成功しました。'
+    redirect_to admin_users_path
+  end
+
  
    private
  

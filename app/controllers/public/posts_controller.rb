@@ -71,10 +71,10 @@ class Public::PostsController < ApplicationController
     flash[:notice] = ' 削除に成功しました。'
     redirect_to posts_path
   end
+ end
 
   private
 
   def post_params
     params.require(:post).permit(:user_id, :genre_id, :caption, :body, :address, :star, tag_ids: [], new_tags: [], images: [])
   end
-end

@@ -1,11 +1,11 @@
 class Public::SearchesController < ApplicationController
 
   def search
-    @query = params[:query] # 検索ワード
+    @query = params[:query]
     if @query.present?
-      @users = User.where("name LIKE ?", "%#{@query}%")
-      @posts = Post.where("caption LIKE ?", "%#{@query}%")
-      @total_results = @users.size + @posts.size # 結果の件数
+      @users = User.where("name LIKE ?", "%#{@query}%").page(params[:page]).per(9)
+      @posts = Post.where("caption LIKE ?", "%#{@query}%").page(params[:page]).per(9)
+      @total_results = @users.total_count + @posts.total_count
     else
       flash[:error] = "検索ワードを入力してください。"
       redirect_back(fallback_location: root_path)

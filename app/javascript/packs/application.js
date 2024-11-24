@@ -13,6 +13,8 @@ import "popper.js";
 import "bootstrap";
 import "../stylesheets/application"; 
 
+import "./image_preview";
+
 window.$ = window.jQuery = require('jquery');
 
 import Raty from "./raty.js" 
@@ -38,3 +40,4 @@ $(document).on('change', '#tag-selector', function () {
     $('#new-tags-group').hide();
   }
 });
+

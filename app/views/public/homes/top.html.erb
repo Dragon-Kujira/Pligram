@@ -1,10 +1,19 @@
-<div class="container">
-<div class="row">
-  <div class="mx-auto text-center">
-    <h1>Pligram</h1>
-    <h4>聖地巡礼（小説、映画、漫画、アニメなどのファンが作品のモチーフになった場所を訪れる行為）​を行った結果のレビューを投稿、検索できるレビューサイト</h4>
-    <h4>  email: 'sample1@example.com',password: 'sample1',name: "ユーザー"</h4>
-    <h4>  email: 'admin1@example.com',password: 'admin1',name: "管理者"</h4>
-  </div>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto text-center">
+      <h1 class="display-4 fw-bold">Pligram</h1>
+      <div class="lead mt-4">
+      <p class="border border-primary rounded p-3">
+      聖地巡礼（小説、映画、漫画、アニメなどのファンが作品のモチーフになった場所を訪れる行為）を行った結果のレビューを投稿、検索できるレビューサイトです。
+     </p>
+    </div>
+    <br>
+      <% unless user_signed_in? %>
+<div class="mt-4">
+  <%= link_to "ユーザー登録", new_user_registration_path, class: "btn btn-primary btn-lg d-block mb-3" %><br>
+  <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary btn-lg d-block" %>
 </div>
+      <% end %>
+    </div>
+  </div>
 </div>

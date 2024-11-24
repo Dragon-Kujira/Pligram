@@ -36,9 +36,10 @@
         </tr>
         <tr>
         <div class="form-group">
-          <th><%= f.label :画像 %></th>
-          <th><%= f.file_field :images, multiple: true, accept: "image/*" %></th>
-        </div>
+        <%= f.label :images, '画像' %>
+        <%= f.file_field :images, multiple: true, accept: "image/*", class: "form-control-file", id: "image-input" %>
+        <div id="image-preview" class="mt-3"></div>
+       </div>
        </tr>
         <tr>
         <div class="form-action">

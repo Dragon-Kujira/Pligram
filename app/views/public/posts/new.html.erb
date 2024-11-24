@@ -47,8 +47,9 @@
               <%= f.text_area :body, rows: 5, cols: 52, placeholder: "ここに説明文を記述します", class: "form-control" %>
             </div>
             <div class="form-group">
-              <%= f.label :images, '画像' %>
-              <%= f.file_field :images, multiple: true, accept: "images/*", class: "form-control-file" %>
+             <%= f.label :images, '画像' %>
+             <%= f.file_field :images, multiple: true, accept: "image/*", class: "form-control-file", id: "image-input" %>
+             <div id="image-preview" class="mt-3"></div>
             </div>
             <div class="form-action">
               <%= f.submit "新規投稿", class: "btn btn-success btn-block" %>

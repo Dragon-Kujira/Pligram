@@ -21,18 +21,21 @@ scope module: :public do
   patch 'my_page/edit', to: 'users#update'
   get '/unsubscribe', to: 'users#unsubscribe', as: 'unsubscribe'
   patch 'users/withdraw', to: 'users#withdraw'
-  get 'userposts/:user_id', to: 'users#userposts', as: 'userposts'
-  resources :users, only: [:show]
+  get 'user_posts/:user_id', to: 'users#user_posts', as: 'user_posts'
+  get 'user_favorites/:user_id' => 'users#user_favorites', as: 'user_favorites'
   resources :posts, only: [:new, :index, :show, :create, :edit, :update, :destroy] do
-  resource :favorite, only: [:create, :destroy]
-  resources :comments, only: [:create, :destroy]  
+  resource :favorite, only: [:index, :create, :destroy]
+  resources :comments, only: [:create, :destroy] 
   end
+  resources :users, only: [:index, :show, :edit, :update]
+  resources :tags, only: [:index]
+  get '/tags/:tag_id/posts', to: 'tags#show', as: 'tag_posts'
 end
 
 namespace :admin do
   root :to => "homes#top"
   resources :genres, only: [:index, :create, :edit, :update]
-  resources :users, only: [:index, :show, :edit, :update]
+  resources :users, only: [:index, :show, :edit, :update, :destroy]
   resources :posts, only: [:index, :show, :edit, :update, :destroy] do
    resources :comments, only: [:create, :destroy] 
   end

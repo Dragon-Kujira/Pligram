@@ -8,10 +8,10 @@
         <%= image_tag image, size: '200x200', class: "img-thumbnail mr-2 mb-2" %>
       <% end %>
       <p class="card-text">ジャンル: <%= @post.genre.name %></p>
-      <p class="card-text">作品タグ: <%= @post.tags.map(&:name).join('') %></ｐ>
+      <p class="card-text">作品タグ: <%= @post.tags.map(&:name).join('') %></p>
       <p class="card-text">レビュー文: <%= @post.body %></p>
       <p class="card-text">住所: <%= @post.address %></p>
-      <p class="card-text">投稿者: <%= @post.user.name %></p>
+      <p class="card-text">投稿者: <%= link_to @post.user.name, admin_user_path(@post.user) %></p>
       <p class="card-text"><%= render "public/posts/starform", post: @post %></p>
       <%= render "public/favorites/btn", post: @post %>
     </div>
@@ -43,7 +43,7 @@
 
 <div class="container">
     <%= link_to '投稿を編集する', edit_admin_post_path(@post.id), class: 'btn btn-success mr-2' %>
-    <%= link_to '投稿を削除する', admin_post_path(@post), method: :delete, class: 'btn btn-danger', data: { confirm: "この投稿を削除しますか？" } %>
+    <%= link_to '投稿を削除する', destroy_admin_post_path(@post), method: :delete, class: 'btn btn-danger', data: { confirm: "この投稿を削除しますか？" } %>
 </div>
 
 

@@ -5,7 +5,7 @@ class Admin::CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     post_id = @comment.post_id
     @comment.destroy
-    flash[:success] = "コメントを削除しました"
+    flash[:success] = "コメントを削除しました。"
     redirect_to admin_post_path(post_id)
   end
 

@@ -1,11 +1,12 @@
 <div class="container py-4">
-  <h2 class="mb-4 text-center">投稿一覧</h2>
+  <!-- 作品タイトル: (タグの名前)の投稿一覧 -->
+  <h2 class="mb-4 text-center">タグ: <%= @tag.name %>の投稿一覧</h2>
 
   <!-- ソートボタン -->
   <div class="d-flex justify-content-center mb-4">
-    <%= link_to "新しい順", posts_path(sort: 'newest'), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'newest'}" %>
-    <%= link_to "古い順", posts_path(sort: 'oldest'), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'oldest'}" %>
-    <%= link_to "評価の高い順", posts_path(sort: 'highest_star'), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'highest_star'}" %>
+  <%= link_to "新しい順", {tag_id: @tag.id, sort: 'newest', page: params[:page]}, class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'newest'}" %>
+  <%= link_to "古い順", {tag_id: @tag.id, sort: 'oldest', page: params[:page]}, class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'oldest'}" %>
+  <%= link_to "評価の高い順", {tag_id: @tag.id, sort: 'highest_star', page: params[:page]}, class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'highest_star'}" %>
   </div>
   <!-- 投稿カード -->
   <div class="row">
@@ -53,7 +54,8 @@
             </div>
           </div>
         </div>
-      </div>     
+      </div>
+      
     <% end %>
   </div>
   <!-- ページネーション -->

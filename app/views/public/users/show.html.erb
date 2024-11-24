@@ -22,13 +22,19 @@
             <li class="list-group-item">
               <i class="bi bi-file-earmark-text-fill"></i>
               <strong> 投稿数:</strong> <%= @user.posts.count %>
-              <span>(<%= link_to "投稿一覧を見る", userposts_path(@user), class: "text-primary" %>)</span>
+              <span>(<%= link_to "投稿一覧を見る", user_posts_path(@user), class: "text-primary" %>)</span>
             </li>
+            <li class="list-group-item">
+              <i class="bi bi-file-earmark-text-fill"></i>
+              <strong> ブックマーク数:</strong> <%= @user.favorites.count %>            
+              <span>(<%= link_to "ブックマーク一覧を見る", user_favorites_path(@user), class: "text-primary" %>)</span>
+            </li>           
           </ul>
           <% if user_signed_in? && @user == current_user %>
           <div class="d-flex justify-content-left mt-4">
             <%= link_to "編集する", edit_my_page_path, class: "btn btn-primary px-4" %>
           </div>
+     
           <% end %>
         </div>
       </div>

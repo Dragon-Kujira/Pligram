@@ -1,15 +1,15 @@
 <div class="container py-4">
-  <h2 class="mb-4 text-center">投稿一覧</h2>
+   <h2 class="mb-4 text-center">ブックマークした投稿一覧</h2>
 
   <!-- ソートボタン -->
   <div class="d-flex justify-content-center mb-4">
-    <%= link_to "新しい順", posts_path(sort: 'newest'), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'newest'}" %>
-    <%= link_to "古い順", posts_path(sort: 'oldest'), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'oldest'}" %>
-    <%= link_to "評価の高い順", posts_path(sort: 'highest_star'), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'highest_star'}" %>
+  <%= link_to "新しい順", user_favorites_path(sort: 'newest', user_id: @user.id), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'newest'}" %>
+  <%= link_to "古い順", user_favorites_path(sort: 'oldest', user_id: @user.id), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'oldest'}" %>
+  <%= link_to "評価順", user_favorites_path(sort: 'highest_star', user_id: @user.id), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'highest_star'}" %>
   </div>
   <!-- 投稿カード -->
   <div class="row">
-    <% @posts.each do |post| %>
+    <% @favorite_posts.each do |post| %>
       <div class="col-md-6 col-lg-4 mb-4">
         <div class="card h-100 shadow-sm">
           <div class="card-body">
@@ -25,9 +25,7 @@
 
             <!-- タグ -->
             <h6 class="card-subtitle mb-2 text-muted">
-            <% post.tags.each do |tag| %>
-             <%= link_to tag.name, tag_posts_path(tag_id: tag.id) %>
-            <% end %>
+              <%= post.tags.map(&:name).join('') %>
             </h6>
 
             <!-- 投稿内容を最大30文字で表示 -->
@@ -53,11 +51,12 @@
             </div>
           </div>
         </div>
-      </div>     
+      </div>
     <% end %>
   </div>
+
   <!-- ページネーション -->
   <div class="d-flex justify-content-center mt-4">
-    <%= paginate @posts, theme: 'bootstrap-5' %>
+    <%= paginate @favorite_posts, theme: 'bootstrap-5' %>
   </div>
 </div>

@@ -3,9 +3,9 @@
 
   <!-- ソートボタン -->
   <div class="d-flex justify-content-center mb-4">
-  <%= link_to "新しい順", userposts_path(sort: 'newest', user_id: @user.id), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'newest'}" %>
-  <%= link_to "古い順", userposts_path(sort: 'oldest', user_id: @user.id), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'oldest'}" %>
-  <%= link_to "評価順", userposts_path(sort: 'highest_star', user_id: @user.id), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'highest_star'}" %>
+  <%= link_to "新しい順", user_posts_path(sort: 'newest', user_id: @user.id), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'newest'}" %>
+  <%= link_to "古い順", user_posts_path(sort: 'oldest', user_id: @user.id), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'oldest'}" %>
+  <%= link_to "評価順", user_posts_path(sort: 'highest_star', user_id: @user.id), class: "btn btn-outline-primary mx-2 #{'active' if params[:sort] == 'highest_star'}" %>
   </div>
   <!-- 投稿カード -->
   <div class="row">

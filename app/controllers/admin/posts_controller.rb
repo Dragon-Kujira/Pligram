@@ -40,6 +40,10 @@ class Admin::PostsController < ApplicationController
      flash[:notice] = ' 削除に成功しました。'
      redirect_to admin_posts_path
    end
+   
+  
+  
+
 
    private
 
