@@ -24,12 +24,17 @@ scope module: :public do
   get 'user_posts/:user_id', to: 'users#user_posts', as: 'user_posts'
   get 'user_favorites/:user_id' => 'users#user_favorites', as: 'user_favorites'
   resources :posts, only: [:new, :index, :show, :create, :edit, :update, :destroy] do
+    get 'new', to: 'posts#new'
+    post '/', to: 'posts#create' 
   resource :favorite, only: [:index, :create, :destroy]
   resources :comments, only: [:create, :destroy] 
   end
   resources :users, only: [:index, :show, :edit, :update]
+  resources :genres, only: [:index]
   resources :tags, only: [:index]
   get '/tags/:tag_id/posts', to: 'tags#show', as: 'tag_posts'
+  resources :genres, only: [:index]
+  get 'genres/:genre_id/posts', to: 'genres#show', as: 'genre_posts'
 end
 
 namespace :admin do

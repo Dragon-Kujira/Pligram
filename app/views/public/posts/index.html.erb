@@ -44,7 +44,7 @@
 
             <!-- ジャンル -->
             <span class="badge bg-primary text-white">
-              <%= post.genre.name %>
+             <%= link_to post.genre.name, genre_posts_path(genre_id: post.genre.id), style: "color: white;" %>
             </span>
 
             <!-- ブックマーク -->

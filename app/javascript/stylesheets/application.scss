@@ -1,1 +1,6 @@
 @use '~bootstrap/scss/bootstrap';
+
+.nav-link:hover {
+  background-color: lightgray; /* マウスが乗った時の背景色 */
+  color: black; /* マウスが乗った時の文字色 */
+}

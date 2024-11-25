@@ -20,7 +20,7 @@ class Public::PostsController < ApplicationController
       redirect_to post_path(@post), notice: '投稿が作成されました。'
     else
       @tags = Tag.all
-      render :new
+      render '/public/posts/new'
     end
   end
   

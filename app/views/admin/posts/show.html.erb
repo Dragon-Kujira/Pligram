@@ -10,7 +10,8 @@
       <p class="card-text">ジャンル: <%= @post.genre.name %></p>
       <p class="card-text">作品タグ: <%= @post.tags.map(&:name).join('') %></p>
       <p class="card-text">レビュー文: <%= @post.body %></p>
-      <p class="card-text">住所: <%= @post.address %></p>
+      <p class="card-text">住所: <a href="<%= @post.google_maps_url %>" target="_blank">
+       <%= @post.address %></a></p>
       <p class="card-text">投稿者: <%= link_to @post.user.name, admin_user_path(@post.user) %></p>
       <p class="card-text"><%= render "public/posts/starform", post: @post %></p>
       <%= render "public/favorites/btn", post: @post %>

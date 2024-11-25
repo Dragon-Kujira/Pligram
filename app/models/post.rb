@@ -1,7 +1,8 @@
 class Post < ApplicationRecord
   belongs_to :genre
   belongs_to :user
-  has_many_attached :images
+  has_many_attached :images, dependent: :destroy
+  
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   #Postsテーブルから中間テーブルに対する関連付け
@@ -9,8 +10,8 @@ class Post < ApplicationRecord
   #Postsテーブルから中間テーブルを介してTagsテーブルへの関連付け
   has_many :tags, through: :post_tags, dependent: :destroy
   
-  validates :genre_id, presence: true
   validates :caption, presence: true
+  validates :tags, presence: true
   validates :body, presence: true
   validates :address, presence: true
   #validates :images, presence: true
@@ -36,6 +37,11 @@ class Post < ApplicationRecord
       images.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
     images
+  end
+
+  def google_maps_url
+    base_url = "https://www.google.com/maps/search/?api=1"
+    "#{base_url}&query=#{CGI.escape(address)}"
   end
 
 
