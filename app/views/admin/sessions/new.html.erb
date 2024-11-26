@@ -8,9 +8,24 @@
     </div>
 
     <div class="mb-3">
-      <%= f.label :パスワード, t('devise.sessions.new.password'), class: "form-label" %>
-      <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+     <%= f.label :password, t('devise.sessions.new.password'), class: "form-label" %>
+     <div class="input-group">
+       <%= f.password_field :password, autocomplete: "current-password", class: "form-control password-field" %>
+       <button type="button" class="btn btn-outline-secondary show-password-btn" onclick="togglePasswordVisibility()">表示</button>
+     </div>
     </div>
+  
+    <script>
+    function togglePasswordVisibility() {
+      var passwordField = document.querySelector('.password-field');
+      if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+      } else {
+        passwordField.type = 'password';
+      }
+    }
+    </script>
+
 
     <div class="d-grid">
       <%= f.submit "ログイン", class: "btn btn-primary" %>

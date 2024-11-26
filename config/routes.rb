@@ -39,7 +39,7 @@ end
 
 namespace :admin do
   root :to => "homes#top"
-  resources :genres, only: [:index, :create, :edit, :update]
+  resources :genres, only: [:index, :create, :edit, :update, :destroy]
   resources :users, only: [:index, :show, :edit, :update, :destroy]
   resources :posts, only: [:index, :show, :edit, :update, :destroy] do
    resources :comments, only: [:create, :destroy] 

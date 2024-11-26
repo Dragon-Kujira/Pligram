@@ -4,56 +4,37 @@
       <h4 class="m-4"><span><%= @post.caption %></span></h4>
     </div>
     <div class="card-body">
-      <% @post.get_images.each do |image| %>
-        <%= image_tag image, size: '200x200', class: "img-thumbnail mr-2 mb-2" %>
-      <% end %>
       <p class="card-text">ジャンル: <%= link_to @post.genre.name, genre_posts_path(genre_id: @post.genre.id) %></p>
       <p class="card-text">作品タグ:
         <% @post.tags.each do |tag| %>
         <%= link_to tag.name, tag_posts_path(tag_id: tag.id) %>
        <% end %></p>
-      <p class="card-text">レビュー文: <%= @post.body %></p>
       <p class="card-text">住所: <a href="<%= @post.google_maps_url %>" target="_blank">
        <%= @post.address %></a></p>
       <p class="card-text">投稿者: <%= link_to @post.user.name, user_path(@post.user) %></p>
+      <p class="card-text">レビュー文: <%= @post.body %></p>
       <p class="card-text"><%= render "public/posts/starform", post: @post %></p>
       <div id="favorite_btn_<%= @post.id %>" class="mt-2">
       <%= render "public/favorites/btn", post: @post %>
+      <% @post.get_images.each do |image| %>
+        <%= image_tag image, size: '200x200', class: "img-thumbnail mr-2 mb-2" %>
+      <% end %>
       </div>
     </div>
   </div>
 </div>
 </div>
 
-<div class="container">
-  <div class="card mb-3 border-0">
-   <div class="card-header border-0" style="padding-top: 0; padding-bottom: 0;">
-    <h5 class="m-4"><span>コメント：<%= @post.comments.count %>件</span></h5>
+
+
+   <div id="post-comments">
+    <%= render "public/comments/show" , { post: @post , comments: @comment } %>
    </div>
-    <div class="card-body">
-    <div class="mb-3">
-      <% @post.comments.each do |comment| %>
-        <div class="card mb-2 border-0"> <!-- カードのふちを非表示に -->
-          <div class="card-body">
-            <%= image_tag comment.user.get_image, size: '50x50', class: "img-thumbnail float-left mr-2" %>
-            <p class="card-text"><strong><%= comment.user.name %></strong><br>
-              <%= comment.body %><br>
-              <%= comment.created_at.strftime('%Y/%m/%d') %></p>
-            <% if comment.user == current_user %>
-              <%= link_to "削除", [comment.post, comment], method: :delete, data: { confirm: "このコメントを削除しますか？" } %>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <div class="form-group">
-      <%= form_with(model: [@post, @comment], url: post_comments_path(@post), method: :post) do |f| %>
-        <%= f.text_area :body, class: "form-control", rows: 3, placeholder: "コメントを入力" %>
-        <%= f.submit "送信する", class: "btn btn-primary mt-2" %>
-      <% end %>
-    </div>
-  </div>
-</div>
+
+   <div id="comment-form">
+    <%= render "public/comments/form" , { post: @post , comment: @comment } %>
+   </div>
+
 
 <div class="container">
   <% if user_signed_in? && current_user.id == @post.user_id %>

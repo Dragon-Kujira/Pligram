@@ -1,2 +1,27 @@
-<h1>Admin::Homes#top</h1>
-<p>Find me in app/views/admin/homes/top.html.erb</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white text-center">
+       <h5 class="card-title mb-0"><%= @admin.name %>のマイページ</h5>
+      </div>
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <%= image_tag @admin.get_image, size: '100x100', class: "rounded-square shadow-sm" %>
+          </div>
+          <h4 class="mb-3">登録情報</h4>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <i class="bi bi-person-fill"></i>
+              <strong> ユーザーネーム:</strong> <%= @admin.name %>
+            </li>
+            <li class="list-group-item">
+              <i class="bi bi-envelope-fill"></i>
+              <strong> メールアドレス:</strong> <%= @admin.email %>
+            </li>      
+          </ul> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -67,6 +67,8 @@ gem 'bootstrap5-kaminari-views', '~> 0.0.1'
 
 gem 'ransack'
 
+gem 'jquery-rails'
+
 gem 'dotenv-rails'
 group :production do
   gem 'mysql2'

@@ -13,7 +13,7 @@ class Admin::GenresController < ApplicationController
      redirect_to admin_genres_path
     else
     @renres = Genre.all
-    flash[:notice] = 'ジャンルの投稿に失敗しました。' 
+    flash[:error] = 'ジャンルの投稿に失敗しました。' 
      render 'index'
     end
   end
@@ -25,6 +25,14 @@ class Admin::GenresController < ApplicationController
   def update
     @genre = Genre.find(params[:id])
     @genre.update(genre_params)
+    flash[:notice] = 'ジャンルを編集しました。' 
+    redirect_to admin_genres_path
+  end
+
+  def destroy
+    @genre = Genre.find(params[:id])
+    @genre.destroy
+    flash[:notice] = 'ジャンルを削除しました。'
     redirect_to admin_genres_path
   end
 

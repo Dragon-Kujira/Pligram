@@ -1,5 +1,12 @@
 <footer style="background-color: #f8f9fa; margin-top: 30px; padding-top: 10px;">
-  <div class="container text-center"> <!-- テキストを中央揃えに -->
-    <%= link_to "管理者ログイン", new_admin_session_path, class: 'btn btn-outline-secondary btn-sm' %> <!-- ボタンの余白を削除 -->
+  <div class="container text-center">
+    <% if user_signed_in? %>
+      ログイン中:  <%= current_user.name %> <!-- ログイン中のUserの名前を表示 -->
+    <% elsif admin_signed_in? %>
+      ログイン中:  <%= current_admin.name %> <!-- ログイン中のAdminの名前を表示 -->
+    <% else %>
+      未ログイン
+    <% end %>
+    <%= link_to "管理者ログイン", new_admin_session_path, class: 'btn btn-outline-secondary btn-sm' %>
   </div>
 </footer>
