@@ -6,9 +6,8 @@ class Public::CommentsController < ApplicationController
     @comment.user_id = current_user.id
     @comment.post_id = @post.id
     @comment.save
-  
     @comments = @post.comments.order(created_at: :desc).page(params[:page]).per(5)
-    flash[:notice] = 'コメントを投稿しました.'
+  
   end
 
   def destroy
@@ -16,7 +15,7 @@ class Public::CommentsController < ApplicationController
     @post = @comment.post # 関連する投稿を取得
     @comment.destroy
     @comments = @post.comments.order(created_at: :desc).page(params[:page]).per(5) # 再取得
-    flash.now[:notice] = 'コメントを削除しました。'
+
   end
 
   private

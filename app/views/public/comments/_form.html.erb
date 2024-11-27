@@ -1,8 +1,10 @@
-<div class="form-group">
-<% if user_signed_in? %>
-  <%= form_with(model: [@post, Comment.new], url: post_comments_path(@post), method: :@post, local: false, authenticity_token: true) do |f| %>
-    <%= f.text_area :body, class: "form-control", rows: 3, placeholder: "コメントを入力" %>
-    <%= f.submit "送信する", class: "btn btn-primary mt-2" %>
+<div class="container">
+ <div class="form-group ">
+  <% if user_signed_in? %>
+   <%= form_with(model: [@post, Comment.new], url: post_comments_path(@post), method: :@post, local: false, authenticity_token: true) do |f| %>
+     <%= f.text_area :body, class: "form-control", rows: 3, placeholder: "コメントを入力" %>
+     <%= f.submit "送信する", class: "btn btn-primary mt-2" %>
+   <% end %>
   <% end %>
-<% end %>
+ </div>
 </div>
