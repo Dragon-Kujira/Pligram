@@ -280,7 +280,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   jquery-rails
   kaminari (~> 1.2.1)
-  listen (~> 3.3)
+  listen (~> 3.5)
   mysql2
   net-imap
   net-pop

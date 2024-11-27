@@ -11,7 +11,6 @@ class Post < ApplicationRecord
   has_many :tags, through: :post_tags, dependent: :destroy
   
   validates :caption, presence: true
-  validates :tags, presence: true
   validates :body, presence: true
   validates :address, presence: true
   #validates :images, presence: true
