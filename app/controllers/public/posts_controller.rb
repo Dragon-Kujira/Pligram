@@ -41,7 +41,10 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
     @comment = Comment.new
     @comments = @post.comments.order(created_at: :desc).page(params[:page]).per(5)
-  end
+    rescue ActiveRecord::RecordNotFound
+     redirect_to posts_path, alert: "指定された投稿は存在しません。"
+   end
+
 
   def edit
    @posts = Post.find(params[:id])

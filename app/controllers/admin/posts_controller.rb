@@ -15,7 +15,7 @@ class Admin::PostsController < ApplicationController
   end
 
   def show
-    @posts = Post.find(params[:id])
+    @post = Post.find(params[:id])
     @comment = Comment.new
     @comments = @post.comments.order(created_at: :desc).page(params[:page]).per(5)
   end
