@@ -20,7 +20,7 @@
 - 旅行の目的地を決めるきっかけを探しているとき
 
 ## 設計書
-後ほど作成予定
+ER図(https://drive.google.com/file/d/12IUzl3HEIzll04OMGZWPCsZlCnEwAxoh/view?usp=sharing)
 ​
 ## 開発環境
 - OS：Linux(CentOS)
