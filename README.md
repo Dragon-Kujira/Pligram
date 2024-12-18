@@ -20,9 +20,9 @@
 - 旅行の目的地を決めるきっかけを探しているとき
 
 ## 設計書
-ER図: (https://drive.google.com/file/d/12IUzl3HEIzll04OMGZWPCsZlCnEwAxoh/view?usp=sharing)
-UIFrows: (https://drive.google.com/file/d/1XY2qkYzbebiVIPdwAWMvAWSVdbwvFL3A/view?usp=sharing)
-テーブル設計図: 
+- ER図: (https://drive.google.com/file/d/12IUzl3HEIzll04OMGZWPCsZlCnEwAxoh/view?usp=sharing)
+- UIFrows: (https://drive.google.com/file/d/1XY2qkYzbebiVIPdwAWMvAWSVdbwvFL3A/view?usp=sharing)
+- テーブル設計図: (https://docs.google.com/spreadsheets/d/1w-fj9W73ZfjW0dyHIoC2SDJa8DVcUGzbvluWYlwbqRA/edit?usp=sharing)
 ​
 ## 開発環境
 - OS：Linux(CentOS)
